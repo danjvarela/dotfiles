@@ -2,18 +2,11 @@
 #   exec tmux
 # fi
 
-# Cow-spoken fortunes every time the terminal is opened
-function cowsayfortune {
-    NUMOFCOWS=`cowsay -l | tail -n +2 | wc -w`
-    WHICHCOW=$((RANDOM%$NUMOFCOWS+1))
-    THISCOW=`cowsay -l | tail -n +2 | sed -e 's/\ /\'$'\n/g' | sed $WHICHCOW'q;d'`
-
-    #echo "Selected cow: ${THISCOW}, from ${WHICHCOW}"
-    fortune | cowsay -f $THISCOW -W 100
-}
-
-cowsayfortune
-
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -42,3 +35,6 @@ zstyle ':omz:update' frequency 30
 plugins=(git rails bundler asdf fzf tmux autojump sudo zsh-vi-mode zsh-interactive-cd zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
